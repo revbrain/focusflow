@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FokusFlow - Timer Fokus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar container">
+      <div class="brand">
+        <span class="brand-mark">FF</span>
+        <span class="brand-text">FokusFlow</span>
+      </div>
+      <nav class="topnav">
+        <button class="nav-pill is-active" data-mode="focus" data-i18n="nav.focus">
+          Fokus
+        </button>
+        <button class="nav-pill" data-mode="short" data-i18n="nav.short">
+          Istirahat
+        </button>
+        <button class="nav-pill" data-mode="long" data-i18n="nav.long">
+          Istirahat Panjang
+        </button>
+      </nav>
+      <div class="top-actions">
+        <select id="lang-select" class="lang-select" aria-label="Language">
+          <option value="id">ID</option>
+          <option value="en">EN</option>
+        </select>
+        <div class="header-options">
+          <button id="header-options" class="secondary-btn" type="button"></button>
+          <div id="header-options-menu" class="options-menu">
+            <button id="toggle-sound" type="button">Suara: On</button>
+            <button id="reset-all" type="button">Reset hari</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container grid">
+      <section class="card timer-card">
+        <div class="timer-header">
+          <div>
+            <p class="eyebrow" data-i18n="labels.sessionActive">Sesi aktif</p>
+            <h1 id="session-label">Fokus</h1>
+            <p id="live-clock" class="live-clock">00:00:00 WIB</p>
+          </div>
+          <div class="timer-meta">
+            <span id="today-count">0 fokus selesai</span>
+            <span id="active-task-label">Tanpa tugas</span>
+          </div>
+        </div>
+        <div class="timer-ring" role="timer" aria-live="polite">
+          <span id="timer-display">25:00</span>
+        </div>
+        <div class="timer-controls">
+          <button id="reset-timer" class="secondary-btn hidden" type="button">
+            Reset
+          </button>
+          <button id="start-pause" class="primary-btn" type="button">
+            Mulai
+          </button>
+          <button id="next-session" class="secondary-btn" type="button">
+            Lewati
+          </button>
+        </div>
+        <div class="timer-info" id="next-session-label">
+          Berikutnya: Istirahat
+        </div>
+      </section>
+
+      <section class="card tasks-card" id="tasks-card">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow" data-i18n="task.list">Daftar tugas</p>
+            <h2 data-i18n="task.today">Fokus hari ini</h2>
+            <p id="today-date" class="task-date">-</p>
+          </div>
+          <div class="task-header-actions">
+            <div class="task-header-row">
+              <p class="task-estimate" id="finish-estimate">
+                Estimasi selesai: -
+              </p>
+              <button
+                id="task-options"
+                class="secondary-btn"
+                type="button"
+                aria-label="Opsi"
+              ></button>
+            </div>
+            <div id="task-options-menu" class="options-menu">
+              <a href="weekly.html" data-i18n="task.weekly">Tugas mingguan</a>
+              <button id="clear-completed" type="button" data-i18n="task.clearCompleted">
+                Hapus tugas selesai
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul id="task-list" class="task-list"></ul>
+        <p id="task-summary" class="task-summary"></p>
+        <form id="task-form" class="task-form hidden">
+          <input
+            id="task-name"
+            type="text"
+            name="name"
+            placeholder="Nama tugas"
+            maxlength="48"
+            required
+            data-i18n-placeholder="task.namePlaceholder"
+          />
+          <input
+            id="task-estimate"
+            type="number"
+            name="estimate"
+            min="1"
+            max="12"
+            value="1"
+            required
+          />
+          <select id="task-break" name="break">
+            <option value="auto">Ikuti siklus</option>
+            <option value="short">Pendek</option>
+            <option value="long">Panjang</option>
+          </select>
+          <button id="cancel-task" class="secondary-btn" type="button" data-i18n="task.cancel">
+            Batal
+          </button>
+        </form>
+        <div id="add-task-card" class="task-empty">Tambah tugas +</div>
+        <details id="completed-toggle" class="completed-block">
+          <summary>Selesai</summary>
+          <ul id="completed-list" class="completed-list"></ul>
+        </details>
+      </section>
+
+      <section class="card settings-card">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow" data-i18n="settings.title">Pengaturan</p>
+            <h2 data-i18n="settings.subtitle">Atur ritme</h2>
+          </div>
+          <label class="switch switch-top">
+            <input id="auto-switch" type="checkbox" />
+            <span data-i18n="settings.autoSwitch">Otomatis ganti sesi</span>
+          </label>
+        </div>
+        <div class="settings-grid">
+          <label>
+            <span data-i18n="settings.focusMinutes">Fokus (menit)</span>
+            <input id="focus-minutes" type="number" min="10" max="90" />
+          </label>
+          <label>
+            <span data-i18n="settings.shortMinutes">Istirahat pendek (menit)</span>
+            <input id="short-minutes" type="number" min="3" max="30" />
+          </label>
+          <label>
+            <span data-i18n="settings.longMinutes">
+              Istirahat panjang (menit)
+            </span>
+            <input id="long-minutes" type="number" min="10" max="60" />
+          </label>
+        </div>
+        <p class="settings-note" data-i18n="settings.note">
+          Setiap 4 sesi fokus, timer akan masuk ke istirahat panjang.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <p data-i18n="footer">
+        FokusFlow menyimpan data di browser Anda. Tanpa akun, tanpa pelacakan.
+      </p>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

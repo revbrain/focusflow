@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FokusFlow - Tugas Mingguan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="weekly.css" />
+  </head>
+  <body>
+    <header class="topbar container">
+      <div class="brand">
+        <span class="brand-mark">FF</span>
+        <span class="brand-text">FokusFlow</span>
+      </div>
+      <div class="top-actions">
+        <a class="ghost-btn link-btn" href="index.html" data-i18n="weekly.todayLink">
+          Hari ini
+        </a>
+        <select id="lang-select" class="lang-select" aria-label="Language">
+          <option value="id">ID</option>
+          <option value="en">EN</option>
+        </select>
+      </div>
+    </header>
+
+    <main class="container weekly">
+      <section class="card weekly-header">
+        <div>
+          <p class="eyebrow" data-i18n="weekly.header">Tugas mingguan</p>
+          <h1 data-i18n="weekly.title">Rencana 1 minggu</h1>
+        </div>
+        <div class="week-controls">
+          <button id="prev-week" class="secondary-btn" type="button">
+            &lt;
+          </button>
+          <span id="week-range" class="week-range">-</span>
+          <button id="next-week" class="secondary-btn" type="button">
+            &gt;
+          </button>
+          <button id="this-week" class="secondary-btn" type="button" data-i18n="weekly.thisWeek">
+            Minggu ini
+          </button>
+        </div>
+      </section>
+
+      <section id="week-grid" class="week-grid"></section>
+    </main>
+
+    <script src="i18n.js"></script>
+    <script src="weekly.js"></script>
+  </body>
+</html>
