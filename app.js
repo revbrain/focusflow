@@ -211,13 +211,13 @@ function updateTimerRing() {
 
 function updateNav() {
   elements.navPills.forEach((pill) => {
-    pill.classList.toggle(
-      "is-active",
-      pill.dataset.mode === state.timer.mode
-    );
+    const activeMode = state.timer.pendingMode || state.timer.mode;
+    pill.classList.toggle("is-active", pill.dataset.mode === activeMode);
     pill.classList.toggle(
       "is-pending",
-      state.timer.running && state.timer.pendingMode === pill.dataset.mode
+      state.timer.running &&
+        state.timer.pendingMode &&
+        pill.dataset.mode === state.timer.mode
     );
   });
 }
