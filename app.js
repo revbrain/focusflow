@@ -73,6 +73,8 @@ const elements = {
   taskSummary: document.getElementById("task-summary"),
   completedList: document.getElementById("completed-list"),
   completedToggle: document.getElementById("completed-toggle"),
+  completedButton: document.getElementById("completed-button"),
+  completedLabel: document.getElementById("completed-label"),
   todayDate: document.getElementById("today-date"),
   taskOptions: document.getElementById("task-options"),
   taskOptionsMenu: document.getElementById("task-options-menu"),
@@ -104,6 +106,14 @@ elements.taskForm.addEventListener(
   },
   { passive: false }
 );
+
+if (elements.completedButton) {
+  elements.completedButton.addEventListener("click", () => {
+    state.settings.showCompleted = !state.settings.showCompleted;
+    saveState();
+    render();
+  });
+}
 
 function loadState() {
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -660,9 +670,11 @@ function updateTaskList() {
     (task) => task.done >= task.estimate
   );
   elements.completedList.innerHTML = "";
-  elements.completedToggle.querySelector("summary").textContent = `${t(
-    "task.completed"
-  )} (${completedTasks.length})`;
+  if (elements.completedLabel) {
+    elements.completedLabel.textContent = `${t("task.completed")} (${
+      completedTasks.length
+    })`;
+  }
   if (completedTasks.length === 0) {
     const empty = document.createElement("li");
     empty.className = "completed-item";
@@ -727,6 +739,16 @@ function updateTaskList() {
       item.appendChild(whenLabel);
       elements.completedList.appendChild(item);
     });
+  }
+
+  if (elements.completedToggle && elements.completedButton) {
+    const isOpen = !!state.settings.showCompleted;
+    elements.completedToggle.classList.toggle("is-open", isOpen);
+    elements.completedButton.setAttribute(
+      "aria-expanded",
+      isOpen ? "true" : "false"
+    );
+    elements.completedList.classList.toggle("is-hidden", !isOpen);
   }
 
 }

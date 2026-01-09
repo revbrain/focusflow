@@ -137,10 +137,17 @@
           </button>
         </form>
         <div id="add-task-card" class="task-empty">Tambah tugas +</div>
-        <details id="completed-toggle" class="completed-block">
-          <summary>Selesai</summary>
-          <ul id="completed-list" class="completed-list"></ul>
-        </details>
+        <div id="completed-toggle" class="completed-block">
+          <button
+            id="completed-button"
+            class="completed-summary"
+            type="button"
+            aria-expanded="false"
+          >
+            <span id="completed-label">Selesai</span>
+          </button>
+          <ul id="completed-list" class="completed-list is-hidden"></ul>
+        </div>
       </section>
 
       <section class="card settings-card">
