@@ -22,9 +22,15 @@ body {
   color: var(--ink);
   background: var(--bg);
   min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
   user-select: none;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 input,
@@ -562,19 +568,31 @@ p {
 .completed-block summary {
   cursor: pointer;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: block;
+  list-style: none;
+  -webkit-appearance: none;
+}
+
+.completed-block summary::marker {
+  content: "";
+  font-size: 0;
+  color: transparent;
+}
+
+.completed-block summary::-webkit-details-marker {
+  display: none;
 }
 
 .completed-block summary::before {
-  content: "▶";
+  content: ">";
+  display: inline-block;
+  margin-right: 8px;
   font-size: 0.7rem;
   color: var(--ink);
 }
 
 .completed-block[open] summary::before {
-  content: "▼";
+  content: "v";
 }
 
 .completed-list {
