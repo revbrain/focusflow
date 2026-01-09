@@ -51,8 +51,9 @@ p {
 }
 
 .container {
-  width: min(1240px, 96vw);
+  width: min(1240px, 100%);
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 
@@ -939,6 +940,10 @@ p {
 }
 
 @media (max-width: 600px) {
+  .card {
+    padding: 24px 20px;
+  }
+
   .timer-ring {
     width: 210px;
     height: 210px;
